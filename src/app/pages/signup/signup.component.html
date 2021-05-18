@@ -1,0 +1,99 @@
+<div class="container mt-5 mb-5">
+    <div class="row">
+        <div class="col col-sm-6 offset-sm-3">
+            <div class="card border-primary">
+                <div class="card-header text-info text-center text-uppercase">Please sign up</div>
+                <div class="card-body">
+                    <form (ngSubmit)="onSignUp(f)" #f="ngForm">
+                        <div class="pb-3">
+                            <small class="text-danger">Fields marked with (*) are mandatory</small>
+                        </div>
+
+                        <div>
+                            <!-- image picker -->
+                            <div class="text-center">
+                              <label for="imagepicker" class="">Upload Image
+                                <img [src]="picture" width="22%" height="20%" alt="" class="profile" />
+                              </label>
+                              <input
+                                type="file"
+                                name="image"
+                                id="imagepicker"
+                                accept="image/*"
+                                multiple="{false}"
+                                class="hidden"
+                                hidden
+                                (change)="uploadFile($event)"
+                              />
+                            </div>
+                            <div *ngIf="uploadPercent && uploadPercent != 100" class="text-center">
+                                uploading
+                                {{ uploadPercent | number: '1.0-0' }} % 
+                            </div>
+                            <div *ngIf="uploadPercent == 100" class="text-success text-uppercase text-center mb-3">
+                              Upload finished
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="email" class="col-sm-3 col-form-label">Email 
+                                <span class="text-danger">*</span>
+                            </label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="email" ngModel required email>
+                                <small class="text-danger" *ngIf="f.controls.email?.errors?.required && f.controls.email?.touched">
+                                    Email is required</small>
+                                <small class="text-danger" *ngIf="f.controls.email?.errors?.email && f.controls.email?.touched">
+                                    Email is invalid. Please enter valid email. </small>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="password" class="col-sm-3 col-form-label">Password
+                                <span class="text-danger">*</span>
+                            </label>
+                            <div class="col-sm-9 d-flex-row">
+                                <input type="password" class="form-control" name="password" ngModel required>
+                                <small class="text-danger" *ngIf="f.controls.password?.errors?.required && f.controls.password?.touched">
+                                    Password is required <br></small>
+                                <small class="text-danger" *ngIf="error?.code">
+                                    {{ error?.message }}</small>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="name" class="col-sm-3 col-form-label">Username
+                                <span class="text-danger">*</span>
+                            </label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="username" ngModel required>
+                                <small class="text-danger" *ngIf="f.controls.username?.errors?.required && f.controls.username?.touched">
+                                    Name is required</small>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="country" class="col-sm-3 col-form-label">Country</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="country" ngModel>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="bio" class="col-sm-3 col-form-label">Bio</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="bio" ngModel>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <button class="btn btn-success col-sm-2 offset-sm-3 my-2" type="submit" 
+                                [disabled]="!f.valid">Sign Up</button>
+                            <button class="btn btn-danger col-sm-2 offset-sm-1 my-2" [routerLink]="['/']">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

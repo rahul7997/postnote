@@ -1,0 +1,17 @@
+<div class="container mt-3 mb-5">
+    <div class="row" *ngIf="!isLoading; else noContent">
+        <div class="col-sm-5 offset-sm-3">
+            <h3 class="text-white text-uppercase text-center mb-3">Stories</h3>
+            <div *ngFor="let post of posts">
+                <app-post [post]="post"></app-post>
+            </div>
+        </div>
+    </div>
+
+    <ng-template #noContent>
+        <div class="d-flex align-items-center justify-content-center" style="height: 80vh;">
+            <div class="spinner-border text-light m-2"></div>
+            <div class="text-white">Loading...</div>
+        </div>
+    </ng-template>
+</div>

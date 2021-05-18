@@ -1,0 +1,12 @@
+<div class="card mb-3 py-3">
+    <div class="d-flex align-items-center" style="box-sizing: border-box; width: 20%;">
+        <div class="m-3">
+            <img [src]="user.picture" alt="" width="60" height="60" class="rounded-circle">
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">{{user.username | uppercase}}</h5>
+            <p class="card-text">{{user.email}}</p>
+            <p *ngIf="user.bio" class="card-text">{{user.bio}}</p>
+        </div>
+    </div>
+</div>

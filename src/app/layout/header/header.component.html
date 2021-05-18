@@ -1,0 +1,26 @@
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #3dd65e;">
+    <a [routerLink]="['/']" class="navbar-brand">
+        <img src="assets/963854.png" width="30" height="30">
+        {{ "Postnote " | uppercase }}
+    </a>
+    
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation" >
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <!-- COLLAPSE class will keep navbar collapsed bydefault -->
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav ml-auto">
+            <a [routerLink]="['']"  class="nav-item nav-link mx-2">Home</a>
+            <a *ngIf="email" [routerLink]="['/addpost']" routerLinkActive="active" class="nav-item nav-link mx-2">Add Post</a>
+            <a *ngIf="!email" [routerLink]="['signin']" routerLinkActive="active" class="nav-item nav-link mx-2">Sign In</a>
+            <a *ngIf="!email" [routerLink]="['/signup']" routerLinkActive="active" class="nav-item nav-link mx-2">Sign Up</a>
+            <a *ngIf="email" [routerLink]="['/users']" routerLinkActive="active" class="nav-item nav-link mx-2">Users</a>
+            <a *ngIf="email" class="nav-item nav-link text-warning mx-2" (click)="signOut()">Logout</a>
+            <a *ngIf="email" [routerLink]="['/user-edit']" routerLinkActive="active" class="nav-item nav-link">
+                <img [src]="user?.picture" alt="user" class="rounded-circle border-primary" width="35" height="35">
+            </a>
+        </div>
+    </div>
+</nav>

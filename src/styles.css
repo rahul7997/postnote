@@ -1,1 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.min.css";
+
+@import "~ngx-toastr/toastr";
+
+body {
+    background-image: url(src/assets/jason-leung-Xaanw0s0pMk-unsplash.jpg);
+    /* background-repeat: repeat-y; */
+    background-size: cover;
+}
+
+body {
+    position: relative;
+    min-width: 100%;
+    min-height: 100vh;
+  }

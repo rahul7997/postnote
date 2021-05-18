@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "r-ng-project": {
+      "hosting": {
+        "notegram": [
+          "r-ng-project"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "r-ng-project"
+  }
+}

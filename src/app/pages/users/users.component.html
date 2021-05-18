@@ -1,0 +1,17 @@
+<div class="container mt-3 mb-5 pb-2">
+    <div *ngIf="!isLoading; else noContent" class="row">
+        <div class="col-sm-6 offset-sm-3">
+            <h3 class="text-white text-uppercase text-center mb-3">Users</h3>
+            <div *ngFor="let user of users">
+                <app-user [user]="user"></app-user>
+            </div>
+        </div>
+    </div>
+
+    <ng-template #noContent>
+        <div class="d-flex align-items-center justify-content-center" style="height: 80vh;">
+            <div class="spinner-border text-light m-2"></div>
+            <div class="text-white">Loading...</div>
+        </div>
+    </ng-template>
+</div>

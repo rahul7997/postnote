@@ -1,0 +1,45 @@
+<div class="row my-5">
+    <div class="col-sm-6">
+        <div class="card border-primary">
+            <div class="card-header text-info text-center text-uppercase">
+                Add your post
+            </div>
+            <form class="card-body" (ngSubmit)="submitPost()">
+                <div class="form-group">
+                    <label for="postTitle">Post Title {{"this is for testing"}}</label>
+                    <input type="text" class="form-control" id="postTitle" placeholder="Enter your post title"
+                    [(ngModel)]="postTitle" name="postTitle">
+                </div>
+
+                <div class="form-group">
+                    <label for="caption">Caption</label>
+                    <textarea rows="5" type="text" class="form-control" id="caption" placeholder="Write post caption here"
+                    [(ngModel)]="caption" name="caption"></textarea>
+                </div>
+
+                <div class="text-center mt-2 mb-4">
+                    <label for="imagepicker" class="mr-3">Upload your post image</label>
+                    <input class="form-control-file" type="file" name="picture" id="imagepicker" accept="image/*" multiple="{false}"
+                    (change)="uploadPostPicture($event)" >
+                    <div [hidden]="!uploadPercent || uploadPercent == 100" class="text-info text-center">
+                        uploading {{ uploadPercent | number: "1.0-0" }}
+                    </div>
+                    <div class="text-success text-uppercase text-center" *ngIf="uploadPercent == 100">
+                        Upload finished 
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-info px-3" [disabled]="!picture">Post</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <h3 *ngIf="picture" class="text-success text-center text-uppercase mt-5">Your Image</h3>
+        <div class="ml-5">
+            <img *ngIf="picture" [src]="picture" alt="" width="70%" height="70%" style="margin-left: 10%;">
+            <p *ngIf="uploadPercent && uploadPercent != 100" class="p-5 text-center text-white">Your picture will load here. Please wait ..</p>
+        </div>
+    </div>
+</div>

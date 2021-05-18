@@ -1,0 +1,39 @@
+<div class="container my-5">
+    <div class="row">
+        <div class="col-sm-6 offset-sm-3">
+            <div class="card">
+                <div class="card-header text-info text-center text-uppercase">Please Sign In</div>
+                <div class="card-body">
+                    <form (ngSubmit)="onSignIn(f)" #f="ngForm">
+                        <div class="form-group row">
+                            <label for="email" class="col-sm-3 col-form-label">Email</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="email" ngModel required email>
+                                <small class="text-danger" *ngIf="f.controls.email?.errors?.required && f.controls.email?.touched">
+                                    Email is required</small>
+                                <small class="text-danger" *ngIf="f.controls.email?.errors?.email && f.controls.email?.touched">
+                                    Email is invalid. Please enter valid email. </small>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="password" class="col-sm-3 col-form-label">Password</label>
+                            <div class="col-sm-9">
+                                <input type="password" class="form-control" name="password" ngModel required>
+                                <small class="text-danger" *ngIf="f.controls.password?.errors?.required && f.controls.password?.touched">
+                                    Password is required<br></small>
+                                <small class="text-danger" *ngIf="error?.code">
+                                    {{ error?.message }}</small>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <button class="btn btn-success col-sm-2 offset-sm-3 my-2" type="submit" [disabled]="!f.valid">
+                                Sign In</button>
+                            <button class="btn btn-danger col-sm-2 offset-sm-1 my-2">Cancel</button>
+                        </div>
+                    </form>
+                    <p class="float-right">New user? <a [routerLink]="['/signup']">Please sign up here</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
