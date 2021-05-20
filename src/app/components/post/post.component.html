@@ -5,6 +5,7 @@
     <!-- <img [src]="post.picture" height="500" width="auto" class="card-img-top img-fluid"/> -->
     <div class="card-body bg-white">
         <h5 class="card-title text-primary" *ngIf="post.postTitle">{{post.postTitle}}</h5>
+        <fa-icon [icon]="faEdit" class="float-right text-secondary rounded-circle" size="lg" (click)="editPost()"></fa-icon>
         <p class="card-text">{{post.caption}}</p>
         <small class="card-text">by:- {{post.by}} <br></small>
         <small class="card-text">{{post.date | date}}</small>
@@ -18,8 +19,8 @@
             <fa-icon [icon]="faThumbsDown" size="lg" primaryColor="blue"></fa-icon>
             {{ downvote }}
         </div>
-        <a target="_blank" class="text-primary">
-            <fa-icon [icon]="faShareSquare" size="lg" primaryColor="blue"></fa-icon>
+        <a target="_blank" (click)="deletePost()" class="text-primary">
+            <fa-icon [icon]="faTrashAlt" size="lg" primaryColor="blue"></fa-icon>
         </a>
     </div>
 </div>

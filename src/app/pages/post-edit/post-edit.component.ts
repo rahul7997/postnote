@@ -1,54 +1,62 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
-import { Router } from '@angular/router';
+import { AngularFireStorage } from '@angular/fire/storage';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { finalize } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 import { imageConfig } from 'src/utils/config';
 import { v4 as uuidv4 } from 'uuid';
-import { readAndCompressImage } from 'browser-image-resizer';
-import { AngularFireStorage } from '@angular/fire/storage';
-import { finalize } from 'rxjs/operators';
+import { readAndCompressImage } from 'browser-image-resizer'; 
 
 @Component({
-  selector: 'app-addpost',
-  templateUrl: './addpost.component.html',
-  styleUrls: ['./addpost.component.css']
+  selector: 'app-post-edit',
+  templateUrl: './post-edit.component.html',
+  styleUrls: ['./post-edit.component.css']
 })
-export class AddpostComponent implements OnInit {
-  postTitle: string = "";
-  picture: string;
-  caption: string = '';
-  user = null;
+export class PostEditComponent implements OnInit {
+
   uploadPercent: number;
+  user: any;
+  postId: any;
+  post = { 
+    postTitle: '',
+    caption: '',
+    picture: ''
+  }
 
   constructor(private router: Router,
               private toastr: ToastrService,
               private authService: AuthService,
               private db: AngularFireDatabase,
-              private storage: AngularFireStorage) { 
+              private storage: AngularFireStorage,
+              private activatedRoute: ActivatedRoute) { 
                 this.authService.getUser().subscribe((res) => {
                   this.db.object(`users/${res.uid}`)
                     .valueChanges().subscribe((user) => {
                       this.user = user;
                     });
                 });
-              }
-
-  ngOnInit(): void {
   }
 
-  submitPost(){
-    const uid = uuidv4();
+  ngOnInit(): void {
+    this.activatedRoute.queryParams.subscribe((queryParams) => {
+      this.postId = queryParams.postId;
+      this.db.object(`/posts/${this.postId}`).valueChanges().subscribe((res: any) => {
+        this.post = res;
+      });
+    });
+  }
 
-    this.db.object(`posts/${uid}`).set({
-        id: uid,
-        postTitle: this.postTitle,
-        caption: this.caption,
-        picture: this.picture,
+  savePost(){
+    this.db.object(`posts/${this.postId}`).update({
+        postTitle: this.post.postTitle,
+        caption: this.post.caption,
+        picture: this.post.picture,
         by: this.user.username,
         date: Date.now()
     }).then(() => {
-      this.toastr.success("Post added");
+      this.toastr.success("Post updated");
       this.router.navigateByUrl("/");
     }).catch((err) => {
       this.toastr.error("Some error occured");
@@ -68,9 +76,8 @@ export class AddpostComponent implements OnInit {
 
     task.snapshotChanges().pipe(finalize(() => {
       fileref.getDownloadURL().subscribe((res) => {
-        this.picture = res;
+        this.post.picture = res;
       })
     })).subscribe();
   }
-
 }

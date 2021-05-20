@@ -1,6 +1,8 @@
 import { Component, Input, OnInit, OnChanges } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
-import { faShareSquare, faThumbsDown, faThumbsUp } from '@fortawesome/free-solid-svg-icons';
+import { ActivatedRoute, Router } from '@angular/router';
+import { faEdit, faThumbsDown, faThumbsUp, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -13,17 +15,27 @@ export class PostComponent implements OnInit, OnChanges {
   upvote = 0;
   downvote = 0;
   uid = null;
-
+  user: any;
+  
   faThumbsUp = faThumbsUp;
   faThumbsDown = faThumbsDown;
-  faShareSquare = faShareSquare;
+  faTrashAlt = faTrashAlt;
+  faEdit = faEdit;
 
   constructor(private db: AngularFireDatabase,
-              private authService: AuthService) { }
+              private authService: AuthService,
+              private toastr: ToastrService,
+              private router: Router,
+              private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.authService.getUser().subscribe((res) => {
-      this.uid = res.uid;
+      if(res){
+        this.uid = res.uid;
+        this.db.object(`/users/${this.uid}`).valueChanges().subscribe((dbuser) => {
+          this.user = dbuser;
+        });
+      }
     });
   }
 
@@ -32,7 +44,6 @@ export class PostComponent implements OnInit, OnChanges {
   }
 
   upvotePost(){
-    
     this.db.object(`posts/${this.post.id}/votes/${this.uid}`).set({
       upvote: 1
     });
@@ -54,6 +65,29 @@ export class PostComponent implements OnInit, OnChanges {
           this.downvote += 1;
         }
       });
+    }
+  }
+
+  deletePost(){
+    if(this.post.by == this.user.username){
+      const choice = confirm('Are you sure you want to delete this post');
+      if(choice){
+        this.db.object(`/posts/${this.post.id}`).remove().then(() => {
+          this.toastr.success('Post deleted');
+        }).catch((err) => {
+          this.toastr.error('Post not found');
+        });
+      } 
+    } else {
+      this.toastr.info('You can only delete posts uploaded by you.');
+    }
+  }
+
+  editPost(){
+    if(this.post.by == this.user.username){
+      this.router.navigate(['post-edit'], {queryParams: {postId: this.post.id}});
+    } else {
+      this.toastr.info('You can edit only posts uploaded by you');
     }
   }
 

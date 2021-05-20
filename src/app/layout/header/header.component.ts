@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { faClone, faPlusSquare, faSignInAlt, faSignOutAlt, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
@@ -12,6 +13,12 @@ import { UserService } from 'src/app/services/user.service';
 export class HeaderComponent implements OnInit {
   email: any;
   user: null;
+
+  faClone = faClone;
+  faPlusSquare = faPlusSquare;
+  faUsers = faUsers;
+  faSignInAlt = faSignInAlt;
+  faSignOutAlt = faSignOutAlt;
 
   constructor(private router: Router,
               private authService: AuthService,

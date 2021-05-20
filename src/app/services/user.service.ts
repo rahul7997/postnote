@@ -7,14 +7,14 @@ import { AuthService } from './auth.service';
   providedIn: 'root'
 })
 export class UserService {
-  user = new Subject<any>();
+  user = new Subject;
 
   constructor(private authService: AuthService,
               private db: AngularFireDatabase) { 
     this.authService.getUser().subscribe((res) => {
       if(res){
-        this.db.object(`/users/${res.uid}`).valueChanges().subscribe((res) => {
-          this.user.next(res);
+        this.db.object(`/users/${res.uid}`).valueChanges().subscribe((user) => {
+          this.user.next(user);
         }, (err) => {
         });
       }

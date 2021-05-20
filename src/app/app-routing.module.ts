@@ -9,6 +9,7 @@ import { SignupComponent } from './pages/signup/signup.component';
 import { AngularFireAuthGuard, redirectLoggedInTo, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
 import { UsersComponent } from './pages/users/users.component';
 import { UserEditComponent } from './pages/user-edit/user-edit.component';
+import { PostEditComponent } from './pages/post-edit/post-edit.component';
 
 const redirectLoggedInToHome = () => redirectLoggedInTo(['']);
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['signin']);
@@ -21,6 +22,7 @@ const routes: Routes = [
   {path: 'users', component: UsersComponent, canActivate: [AngularFireAuthGuard]},
   {path: 'addpost', component: AddpostComponent, canActivate: [AngularFireAuthGuard], data: {authGuardPipe: redirectUnauthorizedToLogin}},
   {path: 'user-edit', component: UserEditComponent, canActivate: [AngularFireAuthGuard], data: {authGuardPipe: redirectUnauthorizedToLogin}},
+  {path: 'post-edit', component: PostEditComponent, canActivate: [AngularFireAuthGuard], data: {authGuardPipe: redirectUnauthorizedToLogin}},
   {path: '**', component: PagenotfoundComponent}
 ];
 

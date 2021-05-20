@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/notegram",
+    "public": "dist/postnote",
     "ignore": [
       "firebase.json",
       "**/.*",

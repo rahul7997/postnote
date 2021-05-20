@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #3dd65e;">
     <a [routerLink]="['/']" class="navbar-brand">
-        <img src="assets/963854.png" width="30" height="30">
+        <img src="assets/logo1.png" width="30" height="30">
         {{ "Postnote " | uppercase }}
     </a>
     
@@ -12,12 +12,19 @@
     <!-- COLLAPSE class will keep navbar collapsed bydefault -->
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav ml-auto">
-            <a [routerLink]="['']"  class="nav-item nav-link mx-2">Home</a>
-            <a *ngIf="email" [routerLink]="['/addpost']" routerLinkActive="active" class="nav-item nav-link mx-2">Add Post</a>
-            <a *ngIf="!email" [routerLink]="['signin']" routerLinkActive="active" class="nav-item nav-link mx-2">Sign In</a>
+            <a [routerLink]="['home']" class="nav-item nav-link mx-2"
+                routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <fa-icon class="icon" [icon]="faClone" primary-color="blue"></fa-icon>&nbsp; Home
+            </a>
+            <a *ngIf="email" [routerLink]="['/addpost']" routerLinkActive="active" class="nav-item nav-link mx-2">
+                <fa-icon class="icon" [icon]="faPlusSquare"></fa-icon>&nbsp; Add Post</a>
+            <a *ngIf="!email" [routerLink]="['signin']" routerLinkActive="active" class="nav-item nav-link mx-2">
+                <fa-icon class="icon" [icon]="faSignInAlt"></fa-icon>&nbsp; Sign In</a>
             <a *ngIf="!email" [routerLink]="['/signup']" routerLinkActive="active" class="nav-item nav-link mx-2">Sign Up</a>
-            <a *ngIf="email" [routerLink]="['/users']" routerLinkActive="active" class="nav-item nav-link mx-2">Users</a>
-            <a *ngIf="email" class="nav-item nav-link text-warning mx-2" (click)="signOut()">Logout</a>
+            <a *ngIf="email" [routerLink]="['/users']" routerLinkActive="active" class="nav-item nav-link mx-2">
+                <fa-icon class="icon" [icon]="faUsers"></fa-icon>&nbsp; Users</a>
+            <a *ngIf="email" class="nav-item nav-link text-warning mx-2" (click)="signOut()">
+                <fa-icon class="icon" [icon]="faSignOutAlt"></fa-icon>&nbsp;Logout</a>
             <a *ngIf="email" [routerLink]="['/user-edit']" routerLinkActive="active" class="nav-item nav-link">
                 <img [src]="user?.picture" alt="user" class="rounded-circle border-primary" width="35" height="35">
             </a>

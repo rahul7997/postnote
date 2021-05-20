@@ -25,8 +25,6 @@ export class UserEditComponent implements OnInit {
     username: '',
     bio: ''
   }
-
-  user2: any;
   
   constructor(private authService: AuthService, 
     private db: AngularFireDatabase,
@@ -37,10 +35,11 @@ export class UserEditComponent implements OnInit {
     
   ngOnInit(): void {
     this.authService.getUser().subscribe((res) => {
-      this.db.object(`/users/${res.uid}/`).valueChanges().subscribe((dbuser: any) => {
-        this.user = dbuser;
-        this.user2 = dbuser;
-      });
+      if(res){
+        this.db.object(`/users/${res.uid}/`).valueChanges().subscribe((dbuser: any) => {
+          this.user = dbuser;
+        });
+      }
     });
   }
 
@@ -48,7 +47,6 @@ export class UserEditComponent implements OnInit {
     this.authService.getUser().subscribe((res) => {
       this.db.object(`users/${res.uid}`)
         .update({
-          username: this.user.username,
           country: this.user.country,
           bio: this.user.bio,
           picture: this.user.picture

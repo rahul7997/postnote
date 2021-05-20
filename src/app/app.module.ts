@@ -24,6 +24,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { AddpostComponent } from './pages/addpost/addpost.component';
 import { UsersComponent } from './pages/users/users.component';
 import { UserEditComponent } from './pages/user-edit/user-edit.component';
+import { PostEditComponent } from './pages/post-edit/post-edit.component';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { UserEditComponent } from './pages/user-edit/user-edit.component';
     HomeComponent,
     AddpostComponent,
     UsersComponent,
-    UserEditComponent
+    UserEditComponent,
+    PostEditComponent
   ],
   imports: [
     BrowserModule,
