@@ -7,7 +7,7 @@
         <h5 class="card-title text-primary" *ngIf="post.postTitle">{{post.postTitle}}</h5>
         <fa-icon [icon]="faEdit" class="float-right text-secondary rounded-circle" size="lg" (click)="editPost()"></fa-icon>
         <p class="card-text">{{post.caption}}</p>
-        <small class="card-text">by:- {{post.by}} <br></small>
+        <small class="card-text">post by:- {{post.by}} <br></small>
         <small class="card-text">{{post.date | date}}</small>
     </div>
     <div class="card-footer d-flex justify-content-around">
